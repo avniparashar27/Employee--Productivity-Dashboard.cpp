@@ -1,0 +1,178 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class dashboard {
+ private:
+   int empid;
+   string name;
+   string department;
+   int taskcompleted;
+   float hoursworked;
+   float attendance;
+   float salary;
+   float productivityscore;
+
+ public:
+   dashboard(int id);
+   dashboard(int id,string name,string department,int taskcompleted,float hoursworked,float attendance,float salary,float productivityscore);
+   void display();
+   void updateEmployee();
+   void calculatebonus();
+   void calculateproductivity();
+   void validateAttendance();
+};
+
+dashboard::dashboard(int e) {
+    empid=e;
+    name="UNKNOWN";
+    department="UNKNOWN";
+    taskcompleted=0;
+    hoursworked=0;
+    attendance=0;
+    salary=0;
+    productivityscore=0;
+}
+
+dashboard::dashboard(int e,string n,string d,int t,float h,float a,float s,float p) {
+    empid=e;
+    name=n;
+    department=d;
+    taskcompleted=t;
+    hoursworked=h;
+    attendance=a;
+    salary=s;
+    productivityscore=p;
+}
+
+void dashboard::display() {     // Display employee details
+    cout<<"Empid: "<<empid<<endl;
+    cout<<"Name: "<<name<<endl;
+    cout<<"Department: "<<department<<endl;
+    cout<<"Task Completed: "<<taskcompleted<<endl;
+    cout<<"Hours Worked: "<<hoursworked<<endl;
+    cout<<"Attendance: "<<attendance<<"%"<<endl;
+    cout<<"Salary : Rs. "<<salary<<endl;
+    cout<<"Productivity Score: "<<productivityscore<<endl;     
+}
+
+void dashboard::updateEmployee() {   // Update employee details
+  cout<<"Department: "<<endl;
+  cin>>department;
+  cout<<"Task Completed: "<<endl;
+  cin>>taskcompleted;
+  cout<<"Hours Worked: "<<endl;
+  cin>>hoursworked;
+  cout<<"Attendance: "<<endl;
+  cin>>attendance;
+  cout<<"Salary: "<<endl;
+  cin>>salary;
+ calculateproductivity();
+ validateAttendance();
+ 
+}
+void dashboard::validateAttendance() {   // Validate attendance percentage
+if(attendance<0 || attendance>100)
+{
+    cout<<"Invalid Attendance! Please enter a value between 0 and 100."<<endl;
+}
+else
+{
+    cout<<"Attendance is valid."<<endl;
+
+}
+}
+
+void dashboard::calculateproductivity() {   // Calculate productivity score
+  productivityscore=(taskcompleted*5)+(hoursworked*2)+attendance;
+  cout<<"Productivity Score: "<<productivityscore<<endl;
+}
+
+void dashboard::calculatebonus() {   // Calculate bonus based on productivity score
+if(productivityscore>=180)
+ {
+    cout<<"Bonus= RS.10000 "<<endl;
+ }
+else if(productivityscore>=150)
+{
+    cout<<"Bonus= RS.7000 "<<endl;
+}
+else if (productivityscore>=120)
+{
+    cout<<"Bonus=RS.5000 "<<endl;
+}
+else
+{
+    cout<<"No Bonus "<<endl;
+
+}
+}
+
+int main() {
+    int empid;
+    string name;
+    string department;
+    int taskcompleted;
+    float hoursworked;
+    float attendance;
+    float salary;
+     int choice;
+
+  cout<<"Empid: "<<endl;
+  cin>>empid;
+  cout<<"Name: "<<endl;
+  cin.ignore();
+  getline(cin,name);
+  cout<<"Department: "<<endl;
+  getline(cin,department);
+  cout<<"Task Completed: "<<endl;
+  cin>>taskcompleted;
+  cout<<"Hours Worked: "<<endl;
+  cin>>hoursworked;
+  cout<<"Attendance: "<<endl;
+  cin>>attendance;
+  cout<<"Salary: "<<endl;
+  cin>>salary;
+  
+ dashboard a1(empid,name,department,taskcompleted,hoursworked,attendance,salary,0);
+ cout<<"\nEmployee Details: \n"<<endl;
+ a1.display();
+
+ cout<<"\n==================================="<<endl;
+ cout<<"  EMPLOYEE DASHBOARD\n"<<endl;
+ cout<<"===================================\n"<<endl;
+ cout<<"1.UpdateEmployee "<<endl;
+ cout<<"2.CalculateBonus "<<endl;
+ cout<<"3.CalculateProductivity "<<endl;
+ cout<<"4.ValidateAttendance "<<endl;
+ cout<<"5.EXIT "<<endl;
+ cout<<"============================"<<endl;
+ cout<<"Enter the choice: "<<endl;
+ cin>>choice;
+
+ switch(choice)
+ {
+ case 1:
+   a1.updateEmployee();
+   a1.display();
+   break;
+ case 2:
+   a1.calculatebonus();
+   a1.display();
+   break;
+ case 3:
+   a1.calculateproductivity();
+   a1.display();
+   break;
+ case 4:
+   a1.validateAttendance();
+   break;
+ case 5:
+   cout<<"Thank you!!!"<<endl;
+   break;
+ default:
+   cout<<"Invalid choice "<<endl;
+ }
+
+ return 0;
+
+}
